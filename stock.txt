@@ -1,0 +1,47 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+	public static void main (String[] args) {
+		//code
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		for(int j =0; j < t; j++){
+		    int n = sc.nextInt();
+		    int buy = sc.nextInt(), sell = -1;
+		    int buy_ind = 0, sell_ind = -1;
+		    boolean flag = true;
+		    for(int i = 1; i < n; i++){
+		        int price = sc.nextInt();
+		        if(price > buy && price > sell){
+		            sell = price;
+		            sell_ind = i;
+		        }
+		        else{
+		            if(sell>buy && sell_ind > buy_ind){
+		              System.out.print("("+buy_ind+" "+sell_ind+") ");
+		              flag = false;
+		            }
+		            sell = -4;
+		            sell_ind = -4;
+		            buy = price;
+		            buy_ind = i;
+		        }
+		    }
+		    if(sell>buy && sell_ind > buy_ind){
+		        System.out.println("("+buy_ind+" "+sell_ind+") ");
+		        flag = false;
+		    }
+		    else{
+		        if(sell==-4 && !flag){
+		            System.out.println("");
+		        }
+		        if(flag){
+		            System.out.println("No Profit");
+		        }
+		    }
+		    
+		}
+	}
+}
