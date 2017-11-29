@@ -1,0 +1,95 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+    
+    public static int bfs(int dist[][],int s1,int s2,int d1,int d2 ){
+        int N = dist.length;
+        int M = dist[0].length;
+        Queue<Integer> pos1= new LinkedList<Integer>();
+        Queue<Integer> pos2 = new LinkedList<Integer>();
+        pos1.add(s1);
+        pos2.add(s2);
+        dist[s1][s2]++;
+        while(!pos1.isEmpty()){
+            int a  = pos1.poll();
+            int b = pos2.poll();
+            
+            // special condition
+            if(a==d1 && b==d2)
+                break;
+            
+            // eight conditions / possible moves from a position    
+            if(a+2 < N){
+                if(b + 1 < M && dist[a+2][b+1]== -1){
+                    dist[a+2][b+1] = dist[a][b] + 1;
+                    pos1.add(a+2);
+                    pos2.add(b+1);
+                }
+                if(b - 1 >=0 && dist[a+2][b-1]== -1){
+                    dist[a+2][b-1] = dist[a][b] + 1;
+                    pos1.add(a+2);
+                    pos2.add(b-1);
+                }
+            }
+            if(a-2 >= 0){
+                if(b + 1 < M && dist[a-2][b+1]== -1){
+                    dist[a-2][b+1] = dist[a][b] + 1;
+                    pos1.add(a-2);
+                    pos2.add(b+1);
+                }
+                if(b - 1 >=0 && dist[a-2][b-1]== -1){
+                    dist[a-2][b-1] = dist[a][b] + 1;
+                    pos1.add(a-2);
+                    pos2.add(b-1);
+                }
+            }
+            if(b+2 < M){
+                if(a + 1 < N && dist[a+1][b+2]== -1){
+                    dist[a+1][b+2] = dist[a][b] + 1;
+                    pos1.add(a+1);
+                    pos2.add(b+2);
+                }
+                if(a - 1 >=0 && dist[a-1][b+2]== -1){
+                    dist[a-1][b+2] = dist[a][b] + 1;
+                    pos1.add(a-1);
+                    pos2.add(b+2);
+                }
+            }
+            if(b-2 >= 0){
+                if(a + 1 < N && dist[a+1][b-2]== -1){
+                    dist[a+1][b-2] = dist[a][b] + 1;
+                    pos1.add(a+1);
+                    pos2.add(b-2);
+                }
+                if(a - 1 >=0 && dist[a-1][b-2]== -1){
+                    dist[a-1][b-2] = dist[a][b] + 1;
+                    pos1.add(a-1);
+                    pos2.add(b-2);
+                }
+            }
+        }
+        return dist[d1][d2];
+    }
+	public static void main (String[] args) {
+		//code
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		for(int i =0 ; i < t; i++){
+            int n,m;
+            n = sc.nextInt();
+            m = sc.nextInt();
+            int s1,s2,d1,d2;
+            s1 = sc.nextInt();
+            s2 = sc.nextInt();
+            d1 = sc.nextInt();
+            d2 = sc.nextInt();
+            int dist[][] = new int[n][m];
+            for (int[] row: dist)
+                Arrays.fill(row, -1);
+            int sol  = bfs(dist,s1-1,s2-1,d1-1,d2-1);
+            System.out.println(sol);
+		}
+	}
+}
